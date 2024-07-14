@@ -77,11 +77,11 @@ if %ERRORLEVEL% NEQ 0 (
 REM Aguardar 10 segundos para garantir que os servidores estejam em execução
 timeout /t 10
 
-REM Abrir o aplicativo Angular no navegador
-start http://localhost:4200/
-
 REM Abrir relatório no navegador
 start "" "file:///%SCRIPT_DIR%B3EvaluationProject.Tests/TestResults/coverage-report/index.html"
+
+REM Abrir o aplicativo Angular no navegador
+start http://localhost:4200/
 
 
 pause
