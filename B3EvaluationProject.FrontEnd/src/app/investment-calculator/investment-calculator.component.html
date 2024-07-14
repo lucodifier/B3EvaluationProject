@@ -1,0 +1,44 @@
+<div class="container mt-5 d-flex justify-content-center">
+  <div class="row justify-content-center align-items-center" style="min-height: 100vh; width: 100%;">
+    <div class="col-md-6 text-center">
+      <h2>Avaliação para desenvolvedor B3</h2>
+      <h4>Calculo de CDB</h4>
+      <form [formGroup]="investmentForm" (ngSubmit)="calculate()">
+        <div class="mb-3 col-md-6 offset-md-3">
+          <label for="initialValue" class="form-label">Valor monetário</label>
+          <input type="number" id="initialValue" formControlName="initialValue" required class="form-control"
+                 [ngClass]="{ 'is-invalid': isSubmitted && initialValue?.errors }" />
+          <div *ngIf="isSubmitted && initialValue?.errors" class="invalid-feedback">
+            <div *ngIf="initialValue?.errors?.['required']">O valor inicial é obrigatório.</div>
+            <div *ngIf="initialValue?.errors?.['min']">O valor inicial deve ser maior que zero.</div>
+          </div>
+        </div>
+        <div class="mb-3 col-md-6 offset-md-3">
+          <label for="months" class="form-label">Meses</label>
+          <input type="number" id="months" formControlName="months" required class="form-control"
+                 [ngClass]="{ 'is-invalid': isSubmitted && months?.errors }" />
+          <div *ngIf="isSubmitted && months?.errors" class="invalid-feedback">
+            <div *ngIf="months?.errors?.['required']">O número de meses é obrigatório.</div>
+            <div *ngIf="months?.errors?.['min']">O número de meses deve ser maior que zero.</div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Calcular</button>
+      </form>
+
+      <div *ngIf="backendErrors.length > 0" class="alert alert-danger mt-3">
+        <ul>
+          <li *ngFor="let error of backendErrors">{{ error }}</li>
+        </ul>
+      </div>
+
+      <div *ngIf="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>
+
+      <div *ngIf="result" class="mt-3">
+        <p>Rendimento Bruto: {{ result.grossValue | currency:'BRL' }}</p>
+        <p>Rendimento Líquido: {{ result.netValue | currency:'BRL' }}</p>
+        <p>Total Bruto: {{ result.totalGrossValue | currency:'BRL' }}</p>
+        <p>Total Líquido: {{ result.totalNetValue | currency:'BRL' }}</p>
+      </div>
+    </div>
+  </div>
+</div>
